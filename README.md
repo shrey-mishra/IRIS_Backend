@@ -76,17 +76,7 @@ Retrieves user information.
 ### POST /auth/logout
 Logs out the current user.
 
-**Request Headers:**
-- `Authorization`: `Bearer <access_token>`
-
-**Response Body:**
-```json
-{
-    "message": "string"
-}
-```
-
-### POST /auth/binance_keys
+### PUT /auth/binance_keys
 Updates the user's Binance API keys.
 
 **Request Headers:**
@@ -105,7 +95,6 @@ Updates the user's Binance API keys.
 {
     "message": "string"
 }
-```
 
 ## Preferences Endpoints
 
