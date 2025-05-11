@@ -45,6 +45,19 @@ def authenticate_user(db: Session, email: str, password: str):
         print("Invalid password")
         return None
     print("User authenticated successfully")
+    # Decrypt Binance API keys
+    if user.binance_api_key:
+        try:
+            user.binance_api_key = cipher.decrypt(user.binance_api_key.encode()).decode()
+        except Exception as e:
+            print(f"Error decrypting binance_api_key: {e}")
+            user.binance_api_key = None  # Or handle the error as needed
+    if user.binance_api_secret:
+        try:
+            user.binance_api_secret = cipher.decrypt(user.binance_api_secret.encode()).decode()
+        except Exception as e:
+            print(f"Error decrypting binance_api_secret: {e}")
+            user.binance_api_secret = None  # Or handle the error as needed
     return user
 
 def delete_user(db: Session, user: User):
