@@ -41,13 +41,11 @@ Logs in an existing user.
 {
     "access_token": "string",
     "token_type": "string",
-    "user": {
-        "email": "string",
-        "id": "integer",
-        "username": "string",
-        "binance_api_key": "string | null",
-        "binance_api_secret": "string | null"
-    }
+    "email": "string",
+    "id": "integer",
+    "username": "string",
+    "binance_api_key": "string | null",
+    "binance_api_secret": "string | null"
 }
 ```
 

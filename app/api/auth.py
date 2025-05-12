@@ -74,7 +74,12 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     if not db_user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     access_token = create_access_token({"sub": db_user.email})
-    return {"access_token": access_token, "token_type": "bearer", "user": UserOut.from_orm(db_user)}
+    user_out = UserOut.from_orm(db_user)
+    if not user_out.binance_api_key:
+        user_out.binance_api_key = None
+    if not user_out.binance_api_secret:
+        user_out.binance_api_secret = None
+    return {"access_token": access_token, "token_type": "bearer", "user": user_out}
 
 @router.post("/logout")
 def logout(current_user_email: str = Depends(get_current_user)):
