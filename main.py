@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import os
 from app.api import auth_router, portfolio as portfolio_router, trading, live_feeds, alerts
 from app.api.preferences import router as preferences_router
@@ -34,6 +35,14 @@ async def lifespan(app: FastAPI):
 
 # Initialize FastAPI app
 app = FastAPI(title="Bitcoin Trading Backend", lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Register API routers
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
