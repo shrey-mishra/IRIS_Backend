@@ -43,9 +43,7 @@ Logs in an existing user.
     "token_type": "string",
     "email": "string",
     "id": "integer",
-    "username": "string",
-    "binance_api_key": "string | null",
-    "binance_api_secret": "string | null"
+    "username": "string"
 }
 ```
 
@@ -74,7 +72,9 @@ Retrieves user information.
 ```json
 {
     "username": "string",
-    "email": "string"
+    "email": "string",
+    "binance_api_key": "string | null",
+    "binance_api_secret": "string | null"
 }
 ```
 

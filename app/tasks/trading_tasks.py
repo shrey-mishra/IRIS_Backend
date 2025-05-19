@@ -2,10 +2,12 @@ from app.utils.binance_utils import get_authenticated_client
 from app.services.auth_service import get_user_by_email
 from app.utils.crypto_utils import decrypt
 from app.core.database import get_db
-from app.ml.lstm_model import predict_next_price
 from app.models.preferences import Preferences
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+from app.utils.model_utils import get_prediction_from_model
+from app.models.trade_history import TradeHistory
+from app.utils.notifications_utils import send_telegram_alert, send_email_alert
 
 def auto_trade_user(email: str, symbol: str = "BTC/USDT", amount: float = 0.01, db: Session = next(get_db())):
     user = get_user_by_email(db, email)
@@ -17,9 +19,11 @@ def auto_trade_user(email: str, symbol: str = "BTC/USDT", amount: float = 0.01, 
         return {"message": "Auto-trade not enabled for user"}
 
     try:
-        current_price, predicted_price = predict_next_price(symbol)
+        data = get_prediction_from_model(symbol)
+        current_price = data["current_price"]
+        predicted_price = data["predicted_price"]
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Prediction API failed: {str(e)}")
 
     diff = (predicted_price - current_price) / current_price
     action = None
@@ -33,8 +37,30 @@ def auto_trade_user(email: str, symbol: str = "BTC/USDT", amount: float = 0.01, 
         try:
             client = get_authenticated_client(user)
             order = client.create_market_order(symbol, action, amount)
+
+            # ✅ Log to DB
+            trade = TradeHistory(
+                user_id=user.id,
+                symbol=symbol,
+                action=action,
+                amount=amount,
+                price=current_price
+            )
+            db.add(trade)
+            db.commit()
+
+            # ✅ Send alert
+            msg = f"{action.upper()} ORDER: {symbol} at ${current_price:.2f} (Predicted: ${predicted_price:.2f})"
+            send_telegram_alert(msg)
+            send_email_alert(
+                subject="Trade Executed",
+                body=msg,
+                to_email=user.email
+            )
+
             return {"message": f"{action.capitalize()} order executed", "details": order}
+
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Order failed: {str(e)}")
-    else:
-        return {"message": "No trade triggered by ML prediction"}
+
+    return {"message": "No trade triggered by ML prediction"}
