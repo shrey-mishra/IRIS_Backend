@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     SMTP_USERNAME: str  # Add your email username
     SMTP_PASSWORD: str  # Add your email password
     EMAIL_SENDER: str  # Add your sender email
+    ML_MODEL_URL: str
 
     class Config:
         env_file = ".env"
