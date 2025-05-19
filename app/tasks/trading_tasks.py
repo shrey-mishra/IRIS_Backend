@@ -1,30 +1,40 @@
-from app.tasks import celery  # Import from parent module
-from app.core.database import SessionLocal
+from app.utils.binance_utils import get_authenticated_client
 from app.services.auth_service import get_user_by_email
-from app.core.config import settings
-from cryptography.fernet import Fernet
-from ccxt import binance
+from app.utils.crypto_utils import decrypt
+from app.core.database import get_db
+from app.ml.lstm_model import predict_next_price
+from app.models.preferences import Preferences
+from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
-@celery.task
-def validate_user_binance_keys(user_email: str):
-    db = SessionLocal()
+def auto_trade_user(email: str, symbol: str = "BTC/USDT", amount: float = 0.01, db: Session = next(get_db())):
+    user = get_user_by_email(db, email)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    prefs = db.query(Preferences).filter(Preferences.user_id == user.id).first()
+    if not prefs or not prefs.auto_trade:
+        return {"message": "Auto-trade not enabled for user"}
+
     try:
-        user = get_user_by_email(db, user_email)
-        if not user or not user.binance_api_key or not user.binance_api_secret:
-            return {"status": "failed", "message": "No credentials"}
-        
-        cipher = Fernet(settings.FERNET_KEY.encode())
-        api_key = cipher.decrypt(user.binance_api_key.encode()).decode()
-        api_secret = cipher.decrypt(user.binance_api_secret.encode()).decode()
-
-        exchange = binance({
-            'apiKey': api_key,
-            'secret': api_secret,
-            'enableRateLimit': True,
-        })
-        exchange.load_markets()
-        return {"status": "success", "message": "Keys valid"}
+        current_price, predicted_price = predict_next_price(symbol)
     except Exception as e:
-        return {"status": "failed", "message": str(e)}
-    finally:
-        db.close()
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+
+    diff = (predicted_price - current_price) / current_price
+    action = None
+
+    if diff >= prefs.threshold_limit:
+        action = "buy"
+    elif diff <= -prefs.threshold_limit:
+        action = "sell"
+
+    if action:
+        try:
+            client = get_authenticated_client(user)
+            order = client.create_market_order(symbol, action, amount)
+            return {"message": f"{action.capitalize()} order executed", "details": order}
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Order failed: {str(e)}")
+    else:
+        return {"message": "No trade triggered by ML prediction"}
