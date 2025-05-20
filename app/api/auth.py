@@ -3,7 +3,7 @@ from app.services.auth_service import update_binance_keys
 from app.utils.crypto_utils import decrypt
 from app.utils.binance_utils import get_wallet_balances
 from fastapi.responses import RedirectResponse
-from app.schemas.user import UserCreate, UserOut, UserLogin, BinanceKeys, UserStatsOut
+from app.schemas.user import UserCreate, UserOut, UserLogin, BinanceKeys, UserStatsOut, UserOutRegister
 from app.models.user import UserStats
 from app.services.auth_service import create_user, authenticate_user, get_user_by_email, delete_user, validate_binance_keys
 from app.core.security import create_access_token, get_current_user
@@ -21,10 +21,10 @@ router = APIRouter()
 # Redis client for token blacklisting
 redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
-@router.post("/register", response_model=UserOut)
+@router.post("/register", response_model=UserOutRegister)
 def register(user: UserCreate, db: Session = Depends(get_db)):
     db_user = create_user(db, user)
-    return db_user
+    return UserOutRegister.from_orm(db_user)
 
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
@@ -99,9 +99,4 @@ def get_user_info(current_user_email: str = Depends(get_current_user), db: Sessi
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    return {
-        "username": user.username,
-        "email": user.email,
-        "binance_api_key": user.binance_api_key,
-        "binance_api_secret": user.binance_api_secret,
-    }
+    return UserOut.from_orm(user)

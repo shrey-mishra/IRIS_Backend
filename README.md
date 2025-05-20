@@ -19,9 +19,7 @@ Registers a new user.
 {
     "email": "string",
     "id": "integer",
-    "username": "string",
-    "binance_api_key": "string | null",
-    "binance_api_secret": "string | null"
+    "username": "string"
 }
 ```
 
@@ -73,8 +71,8 @@ Retrieves user information.
 {
     "username": "string",
     "email": "string",
-    "binance_api_key": "string | null",
-    "binance_api_secret": "string | null"
+    "binance_api_key": "string",
+    "binance_api_secret": "string"
 }
 ```
 

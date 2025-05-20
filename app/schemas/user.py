@@ -9,8 +9,16 @@ class UserOut(BaseModel):
     email: str
     id: int
     username: str
-    binance_api_key: str | None = None
-    binance_api_secret: str | None = None
+    binance_api_key: str
+    binance_api_secret: str
+
+    class Config:
+        from_attributes = True
+
+class UserOutRegister(BaseModel):
+    email: str
+    id: int
+    username: str
 
     class Config:
         from_attributes = True
