@@ -21,16 +21,18 @@ def auto_trade_user(email: str, symbol: str = "BTC/USDT", amount: float = 0.01, 
     try:
         data = get_prediction_from_model(symbol)
         current_price = data["current_price"]
-        predicted_price = data["predicted_price"]
+        predicted_high = data["predicted_price_range"]["high"]
+        predicted_low = data["predicted_price_range"]["low"]
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction API failed: {str(e)}")
 
-    diff = (predicted_price - current_price) / current_price
-    action = None
+    diff_up = (predicted_high - current_price) / current_price
+    diff_down = (current_price - predicted_low) / current_price
 
-    if diff >= prefs.threshold_limit:
+    action = None
+    if diff_up >= prefs.threshold_limit:
         action = "buy"
-    elif diff <= -prefs.threshold_limit:
+    elif diff_down >= prefs.threshold_limit:
         action = "sell"
 
     if action:
@@ -50,7 +52,10 @@ def auto_trade_user(email: str, symbol: str = "BTC/USDT", amount: float = 0.01, 
             db.commit()
 
             # ✅ Send alert
-            msg = f"{action.upper()} ORDER: {symbol} at ${current_price:.2f} (Predicted: ${predicted_price:.2f})"
+            msg = (
+                f"{action.upper()} ORDER: {symbol} at ${current_price:.2f}\n"
+                f"Predicted High: ${predicted_high:.2f}, Predicted Low: ${predicted_low:.2f}"
+            )
             send_telegram_alert(msg)
             send_email_alert(
                 subject="Trade Executed",
