@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.auto import router as auto_router
 import os
-from app.api import auth_router, portfolio as portfolio_router, trading, live_feeds, alerts
+from app.api import auth_router, portfolio as portfolio_router, trading, live_feeds, alerts, trade_history
 from app.api.preferences import router as preferences_router
 from app.core.database import engine, Base
 from app.models.portfolio import Portfolio
@@ -31,6 +31,11 @@ async def lifespan(app: FastAPI):
             "task": "app.tasks.alert_tasks.check_price_decline",
             "schedule": crontab(minute="*/15"),
             "args": ("testuser@example.com", "BTC/USDT", 0.05)
+        },
+        "record-wallet-history": {
+            "task": "app.tasks.wallet_tasks.record_wallet_history",
+            "schedule": crontab(hour="*/12"),
+            "args": ("testuser@example.com",)
         }
     }
 
@@ -55,6 +60,7 @@ app.include_router(live_feeds, prefix="/live", tags=["live"])
 app.include_router(preferences_router, prefix="/preferences", tags=["preferences"])
 app.include_router(alerts, prefix="/alerts", tags=["alerts"])
 app.include_router(auto_router, prefix="/trading", tags=["auto-trade"])
+app.include_router(trade_history.router, prefix="/trades", tags=["trade_history"])
 
 @app.get("/")
 def root():
@@ -66,4 +72,3 @@ celery.conf.beat_schedule.update({
         "schedule": crontab(minute="*/15"),
     }
 })
-

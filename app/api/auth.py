@@ -15,8 +15,13 @@ from cryptography.fernet import Fernet
 import redis
 from ccxt import binance
 import uuid
+from pydantic import BaseModel
 
 router = APIRouter()
+
+class ChangePassword(BaseModel):
+    current_password: str
+    new_password: str
 
 # Redis client for token blacklisting
 redis_client = redis.Redis(host='localhost', port=6379, db=0)
@@ -100,3 +105,18 @@ def get_user_info(current_user_email: str = Depends(get_current_user), db: Sessi
         raise HTTPException(status_code=404, detail="User not found")
 
     return UserOut.from_orm(user)
+
+@router.post("/change-password")
+def change_password(
+    password_change: ChangePassword,
+    current_user_email: str = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    user = authenticate_user(db, current_user_email, password_change.current_password)
+    if not user:
+        raise HTTPException(status_code=401, detail="Incorrect current password")
+
+    hashed_password = pwd_context.hash(password_change.new_password)
+    user.hashed_password = hashed_password
+    db.commit()
+    return {"message": "Password changed successfully"}

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from app.utils.binance_utils import get_wallet_balances
 from sqlalchemy.orm import Session
 from app.core.database import get_db
-from app.models.portfolio import Portfolio
+from app.models.portfolio import Portfolio, WalletHistory
 from app.schemas.portfolio import PortfolioCreate, PortfolioOut
 from app.core.security import get_current_user
 from app.services.auth_service import get_user_by_email
@@ -218,3 +218,20 @@ def get_portfolio_timeseries(
         })
 
     return timeseries_data
+
+@router.get("/wallet/history")
+def get_wallet_history(current_user_email: str = Depends(get_current_user), db: Session = Depends(get_db)):
+    user = get_user_by_email(db, current_user_email)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    wallet_history = db.query(WalletHistory).filter(WalletHistory.user_id == user.id).all()
+
+    return [
+        {
+            "date": h.recorded_at.strftime("%d %b"),
+            "total_value": f"${h.total_value_usd:.2f}",
+            "breakdown": h.snapshot
+        }
+        for h in wallet_history
+    ]

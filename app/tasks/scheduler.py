@@ -4,6 +4,7 @@ from app.core.database import get_db
 from app.models.preferences import Preferences
 from app.models.user import User
 from app.tasks.trading_tasks import auto_trade_user
+from app.tasks.wallet_tasks import record_wallet_history
 from sqlalchemy.orm import Session
 
 @shared_task
