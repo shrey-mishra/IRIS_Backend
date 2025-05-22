@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class UserCreate(BaseModel):
     username: str
@@ -9,8 +10,8 @@ class UserOut(BaseModel):
     email: str
     id: int
     username: str
-    binance_api_key: str
-    binance_api_secret: str
+    binance_api_key: Optional[str] = None
+    binance_api_secret: Optional[str] = None
 
     class Config:
         from_attributes = True
