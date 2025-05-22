@@ -259,7 +259,7 @@ Retrieves trending coins.
 Retrieves block orders for a specific symbol.
 
 **Parameters:**
-- `symbol`: The trading symbol (e.g., BTC/USDT). Default is BTC/USDT.
+- `symbol`: The trading symbol to filter by (e.g., BTC/USDT).
 
 **Response Body:**
 ```json
@@ -277,7 +277,7 @@ Retrieves block orders for a specific symbol.
 Retrieves live chart data for a specific symbol.
 
 **Parameters:**
-- `symbol`: The trading symbol (e.g., BTC/USDT). Default is BTC/USDT.
+- `symbol`: The trading symbol to filter by (e.g., BTC/USDT).
 
 **Response Body:**
 ```json
@@ -493,37 +493,50 @@ Retrieves the user's trade history.
     }
 ]
 
-</final_file_content>
+### GET /trades/live
+Checks if a trade was executed recently.
 
-IMPORTANT: For any future changes to this file, use the final_file_content shown above as your reference. This content reflects the current state of the file, including any auto-formatting (e.g., if you used single quotes but the formatter converted them to double quotes). Always base your SEARCH/REPLACE operations on this final version to ensure accuracy.
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
 
-<environment_details>
-# VSCode Visible Files
-README.md
+**Response Body:**
+```json
+{
+  "is_live": true,
+  "symbol": "BTC/USDT",
+  "action": "buy",
+  "amount": 0.01,
+  "executed_price": 71250.0,
+  "executed_at": "2024-05-26T12:45:00Z"
+}
+```
+or
+```json
+{ "is_live": false }
+```
 
-# VSCode Open Tabs
-app/tasks/trading_tasks.py
-app/schemas/portfolio.py
-app/api/trading.py
-app/api/trade_history.py
-app/models/portfolio.py
-app/tasks/scheduler.py
-main.py
-app/tasks/wallet_tasks.py
-app/api/portfolio.py
-app/api/auth.py
-README.md
+### GET /trades/placed
+Retrieves all trades placed by the authenticated user.
 
-# Recently Modified Files
-These files have been modified since you last accessed them (file was just edited so you may need to re-read it before editing):
-README.md
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
 
-# Current Time
-5/23/2025, 12:38:08 AM (Asia/Calcutta, UTC+5.5:00)
+**Parameters:**
+- `limit` (optional): The maximum number of trades to return.
 
-# Context Window Usage
-69,138 / 1,048.576K tokens used (7%)
-
-# Current Mode
-ACT MODE
-</environment_details>
+**Response Body:**
+```json
+[
+  {
+    "symbol": "BTC",
+    "executed_price": "$2400.00",
+    "commodity_received": "0.00250000",
+    "executed_at": "1 May 07:22 PM"
+  },
+  {
+    "symbol": "ETH",
+    "executed_price": "$1900.00",
+    "commodity_received": "1.03000000",
+    "executed_at": "3 May 04:20 PM"
+  }
+]
