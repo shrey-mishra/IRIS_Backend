@@ -45,6 +45,27 @@ Logs in an existing user.
 }
 ```
 
+### POST /auth/change-password
+Allows a user to change their password.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Request Body:**
+```json
+{
+  "current_password": "oldpass123",
+  "new_password": "newpass456"
+}
+```
+
+**Response Body:**
+```json
+{
+    "message": "Password changed successfully"
+}
+```
+
 ### GET /auth/userstats
 Retrieves user statistics.
 
