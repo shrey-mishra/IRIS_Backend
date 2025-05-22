@@ -12,6 +12,7 @@ from ccxt import binance
 from typing import List
 import plotly.express as px
 import json
+from app.models.trade_history import TradeHistory
 
 router = APIRouter()
 
@@ -164,3 +165,56 @@ def get_portfolio_summary(
         "total_value_usd": total_value_usd,
         "overall_gain_loss_percentage": overall_gain_loss_percentage
     }
+
+@router.get("/timeseries")
+def get_portfolio_timeseries(
+    current_user_email: str = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    user = get_user_by_email(db, current_user_email)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Fetch trade history and portfolio data
+    trade_history = db.query(TradeHistory).filter(TradeHistory.user_id == user.id).all()
+    portfolio = db.query(Portfolio).filter(Portfolio.user_id == user.id).all()
+
+    # Aggregate trades by date
+    trades_by_date = {}
+    for trade in trade_history:
+        date = trade.executed_at.strftime("%d/%m")
+        if date not in trades_by_date:
+            trades_by_date[date] = []
+        trades_by_date[date].append(trade)
+
+    # Calculate gain/loss and total value for each date
+    timeseries_data = []
+    for date, trades in trades_by_date.items():
+        gain = 0
+        loss = 0
+        amt = 0
+        for trade in trades:
+            # Get average purchase price from portfolio
+            asset_portfolio = next((p for p in portfolio if p.asset == trade.symbol), None)
+            if asset_portfolio:
+                purchase_price = asset_portfolio.purchase_price
+            else:
+                purchase_price = 0  # Handle case where asset is not in portfolio
+
+            # Calculate gain/loss
+            if trade.price > purchase_price:
+                gain += trade.amount * (trade.price - purchase_price)
+            elif trade.price < purchase_price:
+                loss += trade.amount * (purchase_price - trade.price)
+
+            # Calculate total value
+            amt += trade.amount * trade.price
+
+        timeseries_data.append({
+            "name": date,
+            "Gain": gain,
+            "Loss": loss,
+            "amt": amt
+        })
+
+    return timeseries_data
