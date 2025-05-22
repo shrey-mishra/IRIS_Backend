@@ -66,6 +66,38 @@ Allows a user to change their password.
 }
 ```
 
+### DELETE /auth/user
+Deletes an existing user.
+
+**Request Body:**
+```json
+{
+    "email": "string",
+    "password": "string"
+}
+```
+
+**Response Body:**
+```json
+{
+    "message": "Account deleted"
+}
+```
+
+### GET /auth/validate-binance-account
+Validates the user's Binance account.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Response Body:**
+```json
+{
+    "status": "success",
+    "wallets": "array"
+}
+```
+
 ### GET /auth/userstats
 Retrieves user statistics.
 
@@ -121,6 +153,27 @@ Updates the user's Binance API keys.
 }
 
 ## Preferences Endpoints
+
+### PUT /preferences/binance_keys
+Updates the user's Binance API keys.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Request Body:**
+```json
+{
+    "binance_api_key": "string",
+    "binance_api_secret": "string"
+}
+```
+
+**Response Body:**
+```json
+{
+    "message": "Binance keys updated successfully"
+}
+```
 
 ### POST /preferences/
 Creates new user preferences.
@@ -310,7 +363,88 @@ Retrieves a graph of the user's portfolio.
 }
 ```
 
+### GET /portfolio/wallet
+Retrieves the user's Binance wallet balances.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Response Body:**
+```json
+{
+    "wallet": "object"
+}
+```
+
+### GET /portfolio/summary
+Retrieves a summary of the user's portfolio.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Response Body:**
+```json
+{
+    "portfolio_summary": "array",
+    "total_value_usd": "number",
+    "overall_gain_loss_percentage": "number"
+}
+```
+
+### GET /portfolio/timeseries
+Retrieves timeseries data for the user's portfolio.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Response Body:**
+```json
+[
+    {
+        "name": "string",
+        "Gain": "number",
+        "Loss": "number",
+        "amt": "number"
+    }
+]
+```
+
+### GET /portfolio/wallet/history
+Retrieves the history of the user's wallet.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Response Body:**
+```json
+[
+    {
+        "date": "string",
+        "total_value": "string",
+        "breakdown": "object"
+    }
+]
+```
+
 ## Trading Endpoints
+
+### GET /trading/signals/latest
+Retrieves the latest trading signals.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Response Body:**
+```json
+[
+    {
+        "coin": "string",
+        "Confidence": "string",
+        "Signal Date": "string",
+        "Direction": "string"
+    }
+]
+```
 
 ### POST /trading/execute
 Executes a trade.
@@ -333,3 +467,63 @@ Executes a trade.
 {
     "message": "string"
 }
+
+## Trade History Endpoints
+
+### GET /history
+Retrieves the user's trade history.
+
+**Request Headers:**
+- `Authorization`: `Bearer <access_token>`
+
+**Parameters:**
+- `symbol` (optional): The trading symbol to filter by (e.g., BTC/USDT).
+- `from_date` (optional): The start date to filter by (e.g., 2023-01-01).
+- `to_date` (optional): The end date to filter by (e.g., 2023-01-31).
+
+**Response Body:**
+```json
+[
+    {
+        "symbol": "string",
+        "action": "string",
+        "amount": "number",
+        "price": "number",
+        "executed_at": "string"
+    }
+]
+
+</final_file_content>
+
+IMPORTANT: For any future changes to this file, use the final_file_content shown above as your reference. This content reflects the current state of the file, including any auto-formatting (e.g., if you used single quotes but the formatter converted them to double quotes). Always base your SEARCH/REPLACE operations on this final version to ensure accuracy.
+
+<environment_details>
+# VSCode Visible Files
+README.md
+
+# VSCode Open Tabs
+app/tasks/trading_tasks.py
+app/schemas/portfolio.py
+app/api/trading.py
+app/api/trade_history.py
+app/models/portfolio.py
+app/tasks/scheduler.py
+main.py
+app/tasks/wallet_tasks.py
+app/api/portfolio.py
+app/api/auth.py
+README.md
+
+# Recently Modified Files
+These files have been modified since you last accessed them (file was just edited so you may need to re-read it before editing):
+README.md
+
+# Current Time
+5/23/2025, 12:38:08 AM (Asia/Calcutta, UTC+5.5:00)
+
+# Context Window Usage
+69,138 / 1,048.576K tokens used (7%)
+
+# Current Mode
+ACT MODE
+</environment_details>
