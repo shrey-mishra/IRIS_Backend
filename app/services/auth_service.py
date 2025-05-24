@@ -6,10 +6,9 @@ from passlib.context import CryptContext
 from fastapi import HTTPException
 from cryptography.fernet import Fernet
 import base64
+from app.core.config import settings
 
-# Generate a Fernet key (store securely in production, e.g., .env)
-key = Fernet.generate_key()
-cipher = Fernet(key)
+cipher = Fernet(settings.FERNET_KEY.encode())
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
