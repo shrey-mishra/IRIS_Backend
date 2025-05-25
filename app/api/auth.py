@@ -1,4 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 from app.services.auth_service import update_binance_keys
 from app.utils.crypto_utils import decrypt
 from app.utils.binance_utils import get_wallet_balances

@@ -97,89 +97,96 @@ def get_binance_wallet(current_user_email: str = Depends(get_current_user), db: 
         raise HTTPException(status_code=400, detail=f"Could not fetch wallet data: {str(e)}")
 
 
+from ccxt import binance
+from cryptography.fernet import Fernet
+from app.core.config import settings
+from app.models.preferences import Preferences
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
 @router.get("/summary")
 def get_portfolio_summary(
     current_user_email: str = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    from ccxt import binance
-    from cryptography.fernet import Fernet
-    from app.core.config import settings
-    from app.models.preferences import Preferences
-
-    user = get_user_by_email(db, current_user_email)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    # ✅ Decrypt Binance keys from user model
-    if not user.binance_api_key or not user.binance_api_secret:
-        raise HTTPException(status_code=400, detail="Binance API keys not found for user")
-
     try:
-        cipher = Fernet(settings.FERNET_KEY.encode())
-        decrypted_key = cipher.decrypt(user.binance_api_key.encode()).decode()
-        decrypted_secret = cipher.decrypt(user.binance_api_secret.encode()).decode()
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Decryption failed: {str(e)}")
+        user = get_user_by_email(db, current_user_email)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
 
-    exchange = binance({
-        'apiKey': decrypted_key,
-        'secret': decrypted_secret,
-    })
-
-    try:
-        balances = exchange.fetch_balance()
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Could not fetch balances from Binance: {str(e)}")
-
-    portfolio_entries = db.query(Portfolio).filter(Portfolio.user_id == user.id).all()
-
-    # Coin symbol-to-name mapping
-    symbol_to_name = {
-        "BTC": "Bitcoin",
-        "ETH": "Ethereum",
-        "LTC": "Litecoin",
-        "BNB": "Binance Coin",
-        "XRP": "Ripple",
-    }
-
-    portfolio_summary = []
-    total_value_usd = 0
-    overall_gain_loss = 0
-
-    for entry in portfolio_entries:
-        symbol = entry.asset
-        amount = entry.btc_amount
-        purchase_price = entry.purchase_price
+        # ✅ Decrypt Binance keys from user model
+        if not user.binance_api_key or not user.binance_api_secret:
+            raise HTTPException(status_code=400, detail="Binance API keys not found for user")
 
         try:
-            ticker = exchange.fetch_ticker(f"{symbol}/USDT")
-            current_price = ticker['last']
+            cipher = Fernet(settings.FERNET_KEY.encode())
+            decrypted_key = cipher.decrypt(user.binance_api_key.encode()).decode()
+            decrypted_secret = cipher.decrypt(user.binance_api_secret.encode()).decode()
         except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Could not fetch ticker for {symbol}: {str(e)}")
+            raise HTTPException(status_code=400, detail=f"Decryption failed: {str(e)}")
 
-        gain_loss_percentage = (current_price - purchase_price) / purchase_price * 100
-        current_value_usd = current_price * amount
-
-        total_value_usd += current_value_usd
-        overall_gain_loss += (current_price - purchase_price) * amount
-
-        portfolio_summary.append({
-            "coin": symbol_to_name.get(symbol, symbol),
-            "amount": amount,
-            "purchase_price": purchase_price,
-            "current_price": current_price,
-            "gain_loss_percentage": gain_loss_percentage,
-            "current_value_usd": current_value_usd
+        exchange = binance({
+            'apiKey': decrypted_key,
+            'secret': decrypted_secret,
         })
 
-    overall_gain_loss_percentage = (overall_gain_loss / total_value_usd) * 100 if total_value_usd else 0
+        try:
+            balances = exchange.fetch_balance()
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Could not fetch balances from Binance: {str(e)}")
 
-    return {
-        "portfolio_summary": portfolio_summary,
-        "total_value_usd": total_value_usd,
-        "overall_gain_loss_percentage": overall_gain_loss_percentage
-    }
+        portfolio_entries = db.query(Portfolio).filter(Portfolio.user_id == user.id).all()
+
+        # Coin symbol-to-name mapping
+        symbol_to_name = {
+            "BTC": "Bitcoin",
+            "ETH": "Ethereum",
+            "LTC": "Litecoin",
+            "BNB": "Binance Coin",
+            "XRP": "Ripple",
+        }
+
+        portfolio_summary = []
+        total_value_usd = 0
+        overall_gain_loss = 0
+
+        for entry in portfolio_entries:
+            symbol = entry.asset
+            amount = entry.btc_amount
+            purchase_price = entry.purchase_price
+
+            try:
+                ticker = exchange.fetch_ticker(f"{symbol}/USDT")
+                current_price = ticker['last']
+            except Exception as e:
+                raise HTTPException(status_code=500, detail=f"Could not fetch ticker for {symbol}: {str(e)}")
+
+            gain_loss_percentage = (current_price - purchase_price) / purchase_price * 100
+            current_value_usd = current_price * amount
+
+            total_value_usd += current_value_usd
+            overall_gain_loss += (current_price - purchase_price) * amount
+
+            portfolio_summary.append({
+                "coin": symbol_to_name.get(symbol, symbol),
+                "amount": amount,
+                "purchase_price": purchase_price,
+                "current_price": current_price,
+                "gain_loss_percentage": gain_loss_percentage,
+                "current_value_usd": current_value_usd
+            })
+
+        overall_gain_loss_percentage = (overall_gain_loss / total_value_usd) * 100 if total_value_usd else 0
+
+        return {
+            "portfolio_summary": portfolio_summary,
+            "total_value_usd": total_value_usd,
+            "overall_gain_loss_percentage": overall_gain_loss_percentage
+        }
+    except Exception as e:
+        logging.exception("Error in get_portfolio_summary")
+        raise
 
 
 
