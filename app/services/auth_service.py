@@ -5,11 +5,10 @@ from app.schemas.user import UserCreate
 from passlib.context import CryptContext
 from fastapi import HTTPException
 from cryptography.fernet import Fernet
-import base64
+from app.core.config import settings
 
-# Generate a Fernet key (store securely in production, e.g., .env)
-key = Fernet.generate_key()
-cipher = Fernet(key)
+# Use the configured Fernet key for encryption/decryption
+cipher = Fernet(settings.FERNET_KEY.encode())
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
