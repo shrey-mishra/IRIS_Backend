@@ -1,0 +1,1 @@
+            "strength": min(100, max(0, abs(strength))),

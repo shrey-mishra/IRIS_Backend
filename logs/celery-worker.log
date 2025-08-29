@@ -1,0 +1,440 @@
+[2025-08-26 23:44:51,058: WARNING/MainProcess] /Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2025-08-26 23:44:51,077: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2025-08-26 23:44:51,078: WARNING/MainProcess] /Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2025-08-26 23:44:51,081: INFO/MainProcess] mingle: searching for neighbors
+[2025-08-26 23:44:52,092: WARNING/MainProcess] /Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/app/control.py:56: DuplicateNodenameWarning: Received multiple replies from node name: celery@Krishnas-MacBook-Air.local.
+Please make sure you give each node a unique nodename using
+the celery worker `-n` option.
+  warnings.warn(DuplicateNodenameWarning(
+
+[2025-08-26 23:44:52,093: INFO/MainProcess] mingle: all alone
+[2025-08-26 23:44:52,100: INFO/MainProcess] celery@Krishnas-MacBook-Air.local ready.
+[2025-08-26 23:50:00,035: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[f496cac1-d7a3-452c-98fa-bf578c2c1572] received
+[2025-08-26 23:50:21,788: INFO/ForkPoolWorker-8] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[f496cac1-d7a3-452c-98fa-bf578c2c1572] succeeded in 21.748226499999873s: {'status': 'ok', 'processed': 1}
+Stale pidfile exists - Removing it.
+ 
+ -------------- celery@Krishnas-MacBook-Air.local v5.4.0 (opalescent)
+--- ***** ----- 
+-- ******* ---- macOS-15.0.1-arm64-arm-64bit-Mach-O 2025-08-28 10:44:50
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         bitcoin_trading:0x1025ef620
+- ** ---------- .> transport:   redis://localhost:6379/0
+- ** ---------- .> results:     redis://localhost:6379/0
+- *** --- * --- .> concurrency: 1 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . app.tasks.alert_tasks.check_price_decline
+  . app.tasks.trading_tasks.run_auto_trading_for_all_users
+  . app.tasks.trading_tasks.validate_user_binance_keys
+
+[2025-08-28 10:44:50,668: WARNING/MainProcess] /Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2025-08-28 10:44:50,690: INFO/MainProcess] Connected to redis://localhost:6379/0
+[2025-08-28 10:44:50,690: WARNING/MainProcess] /Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/worker/consumer/consumer.py:508: CPendingDeprecationWarning: The broker_connection_retry configuration setting will no longer determine
+whether broker connection retries are made during startup in Celery 6.0 and above.
+If you wish to retain the existing behavior for retrying connections on startup,
+you should set broker_connection_retry_on_startup to True.
+  warnings.warn(
+
+[2025-08-28 10:44:50,692: INFO/MainProcess] mingle: searching for neighbors
+[2025-08-28 10:44:51,698: INFO/MainProcess] mingle: all alone
+[2025-08-28 10:44:51,707: INFO/MainProcess] celery@Krishnas-MacBook-Air.local ready.
+ERROR: Pidfile (logs/celery-worker.pid) already exists.
+Seems we're already running? (pid: 96202)
+[2025-08-28 10:46:17,168: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[0f82cedb-e532-466a-9867-278ec2d10800] received
+[2025-08-28 10:46:22,109: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 10:46:23,947: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:46:26,818: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=0
+[2025-08-28 10:46:28,538: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:46:30,111: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:46:30,281: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[0f82cedb-e532-466a-9867-278ec2d10800] succeeded in 13.11181554198265s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 10:46:32,875: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[24589e7d-5de5-45aa-a112-161f85923f9d] received
+[2025-08-28 10:46:33,215: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 10:46:35,128: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:46:36,733: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=0
+[2025-08-28 10:46:38,375: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:46:40,071: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:46:40,245: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[24589e7d-5de5-45aa-a112-161f85923f9d] succeeded in 7.368791375018191s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 10:50:00,003: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[19c56309-c2f2-4acb-9c1a-dad99c93f8c2] received
+[2025-08-28 10:50:00,361: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 10:50:03,661: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:50:05,919: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=0
+[2025-08-28 10:50:08,124: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:50:10,253: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 10:50:10,425: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[19c56309-c2f2-4acb-9c1a-dad99c93f8c2] succeeded in 10.419860499969218s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 10:55:00,037: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[e19fa0e4-7449-43cb-9181-10db8898afe3] received
+[2025-08-28 10:55:00,382: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 10:55:05,668: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 10:55:07,786: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=15
+[2025-08-28 10:55:09,374: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 10:55:11,031: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 10:55:11,201: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[e19fa0e4-7449-43cb-9181-10db8898afe3] succeeded in 11.156662333989516s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 11:00:00,015: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[f4b07725-765b-4f1a-9f9c-3e52faf76e55] received
+[2025-08-28 11:00:00,367: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 11:00:04,506: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:00:06,185: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=15
+[2025-08-28 11:00:07,913: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:00:09,648: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:00:09,823: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[f4b07725-765b-4f1a-9f9c-3e52faf76e55] succeeded in 9.803041415987536s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 11:05:00,007: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[311dacdd-ed5f-480f-af4d-0ee84611d446] received
+[2025-08-28 11:05:00,365: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 11:05:02,210: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:05:03,913: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=15
+[2025-08-28 11:05:05,510: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:05:07,189: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 11:05:07,361: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[311dacdd-ed5f-480f-af4d-0ee84611d446] succeeded in 7.35106612497475s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 11:10:00,056: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[7e4010bc-8687-422a-9a6d-8a0501de657c] received
+[2025-08-28 11:10:00,424: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 11:10:02,490: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 11:10:04,044: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=15
+[2025-08-28 11:10:05,701: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:10:07,371: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=20
+[2025-08-28 11:10:07,544: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[7e4010bc-8687-422a-9a6d-8a0501de657c] succeeded in 7.481367750035133s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 11:22:54,814: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[0e1ac4d2-3849-409e-a149-9a0d24d1edcc] received
+[2025-08-28 11:23:25,822: ERROR/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[0e1ac4d2-3849-409e-a149-9a0d24d1edcc] raised unexpected: OperationalError('(psycopg2.OperationalError) could not receive data from server: Operation timed out\nSSL SYSCALL error: Operation timed out\n')
+Traceback (most recent call last):
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not receive data from server: Operation timed out
+SSL SYSCALL error: Operation timed out
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/app/tasks/trading_tasks.py", line 41, in run_auto_trading_for_all_users
+    settings_rows = db.query(AutoTradingSettings).filter(AutoTradingSettings.enabled == True).all()
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/query.py", line 2858, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not receive data from server: Operation timed out
+SSL SYSCALL error: Operation timed out
+
+[SQL: SELECT auto_trading_settings.id AS auto_trading_settings_id, auto_trading_settings.user_id AS auto_trading_settings_user_id, auto_trading_settings.enabled AS auto_trading_settings_enabled, auto_trading_settings.risk_level AS auto_trading_settings_risk_level, auto_trading_settings.max_trade_size AS auto_trading_settings_max_trade_size, auto_trading_settings.allowed_pairs AS auto_trading_settings_allowed_pairs 
+FROM auto_trading_settings 
+WHERE auto_trading_settings.enabled = true]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-08-28 11:25:00,010: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[77e596ff-9d77-4d72-b3ce-672e143db2e6] received
+[2025-08-28 11:25:02,512: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 11:25:04,882: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:25:06,574: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=15
+[2025-08-28 11:25:08,921: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:25:10,999: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:25:11,171: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[77e596ff-9d77-4d72-b3ce-672e143db2e6] succeeded in 11.15943708299892s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 11:30:00,026: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[66bd9414-732d-4890-b526-c84f4d77359c] received
+[2025-08-28 11:30:00,454: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 11:30:03,428: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:30:05,016: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=15
+[2025-08-28 11:30:10,288: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:30:11,973: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:30:12,145: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[66bd9414-732d-4890-b526-c84f4d77359c] succeeded in 12.115974416956306s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 11:35:00,054: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[822a58ef-14d8-4c5b-b549-b900db0ad7c8] received
+[2025-08-28 11:35:00,415: WARNING/ForkPoolWorker-1] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-28 11:35:02,432: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:35:04,049: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=NEUTRAL strength=15
+[2025-08-28 11:35:06,895: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:35:08,624: WARNING/ForkPoolWorker-1] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=BUY strength=30
+[2025-08-28 11:35:08,803: INFO/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[822a58ef-14d8-4c5b-b549-b900db0ad7c8] succeeded in 8.744781084009446s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-28 11:50:56,933: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[46aa32ae-9ee3-45ad-b5a4-3a4ede6e49d0] received
+[2025-08-28 11:51:41,417: ERROR/ForkPoolWorker-1] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[46aa32ae-9ee3-45ad-b5a4-3a4ede6e49d0] raised unexpected: OperationalError('(psycopg2.OperationalError) could not receive data from server: Operation timed out\nSSL SYSCALL error: Operation timed out\n')
+Traceback (most recent call last):
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: could not receive data from server: Operation timed out
+SSL SYSCALL error: Operation timed out
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/app/trace.py", line 453, in trace_task
+    R = retval = fun(*args, **kwargs)
+                 ~~~^^^^^^^^^^^^^^^^^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/app/trace.py", line 736, in __protected_call__
+    return self.run(*args, **kwargs)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/app/tasks/trading_tasks.py", line 41, in run_auto_trading_for_all_users
+    settings_rows = db.query(AutoTradingSettings).filter(AutoTradingSettings.enabled == True).all()
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/query.py", line 2704, in all
+    return self._iter().all()  # type: ignore
+           ~~~~~~~~~~^^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/query.py", line 2858, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not receive data from server: Operation timed out
+SSL SYSCALL error: Operation timed out
+
+[SQL: SELECT auto_trading_settings.id AS auto_trading_settings_id, auto_trading_settings.user_id AS auto_trading_settings_user_id, auto_trading_settings.enabled AS auto_trading_settings_enabled, auto_trading_settings.risk_level AS auto_trading_settings_risk_level, auto_trading_settings.max_trade_size AS auto_trading_settings_max_trade_size, auto_trading_settings.allowed_pairs AS auto_trading_settings_allowed_pairs 
+FROM auto_trading_settings 
+WHERE auto_trading_settings.enabled = true]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+SIGHUP not supported: Restarting with SIGHUP is unstable on this platform!
+[2025-08-28 12:03:57,834: ERROR/MainProcess] Process 'ForkPoolWorker-1' pid:96312 exited with 'exitcode 70'
+ERROR: Pidfile (logs/celery-worker.pid) already exists.
+Seems we're already running? (pid: 96202)
+[2025-08-29 22:18:11,953: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[dbbc245f-cd7a-425d-8ac6-1a81706d6fb6] received
+[2025-08-29 22:18:15,486: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:18:17,756: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:18:20,234: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:18:21,947: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:18:24,243: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=NEUTRAL strength=5
+[2025-08-29 22:18:24,435: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[dbbc245f-cd7a-425d-8ac6-1a81706d6fb6] succeeded in 12.44099987501977s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:19:05,420: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[1150d77b-6053-4a50-939c-2e9a9d70c16a] received
+[2025-08-29 22:19:05,780: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:19:07,884: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:19:09,694: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:19:11,461: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:19:13,226: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=NEUTRAL strength=5
+[2025-08-29 22:19:13,402: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[1150d77b-6053-4a50-939c-2e9a9d70c16a] succeeded in 7.977168208977673s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:20:00,022: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[85d5f5ea-5c40-44f7-abbe-a4837548fbb2] received
+[2025-08-29 22:20:00,402: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:20:03,213: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:20:05,277: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:20:07,337: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:20:09,059: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=NEUTRAL strength=5
+[2025-08-29 22:20:09,236: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[85d5f5ea-5c40-44f7-abbe-a4837548fbb2] succeeded in 9.198883125034627s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:25:00,027: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[1201d024-72d4-469d-a800-465c2847bf1d] received
+[2025-08-29 22:25:00,388: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:25:05,196: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:25:07,339: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:25:09,443: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:25:11,822: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=NEUTRAL strength=5
+[2025-08-29 22:25:12,000: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[1201d024-72d4-469d-a800-465c2847bf1d] succeeded in 11.969053375010844s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:28:39,792: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[eccd9664-6be4-4a6b-8cf2-4f4c60635ca7] received
+[2025-08-29 22:28:40,159: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:28:42,412: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:28:44,416: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:28:46,525: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:28:46,712: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[eccd9664-6be4-4a6b-8cf2-4f4c60635ca7] succeeded in 6.9147236659773625s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:30:00,031: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[e1bb59e7-17da-439a-86f9-ec5e27d61504] received
+[2025-08-29 22:30:00,403: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:30:03,045: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:30:05,834: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:30:07,894: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:30:08,070: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[e1bb59e7-17da-439a-86f9-ec5e27d61504] succeeded in 8.033445000008214s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:33:09,865: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[3b1d486d-c9e5-47d2-b763-245aad171c18] received
+[2025-08-29 22:33:10,230: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:33:13,938: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:33:16,927: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:33:19,931: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:33:20,107: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[3b1d486d-c9e5-47d2-b763-245aad171c18] succeeded in 10.237403957988136s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:35:00,112: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[23bf7725-31aa-4b46-a4fb-56945e462cf2] received
+[2025-08-29 22:35:00,470: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:35:03,301: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:35:05,198: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:35:07,324: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:35:07,501: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[23bf7725-31aa-4b46-a4fb-56945e462cf2] succeeded in 7.385338583029807s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:40:00,032: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[cd82dab2-bc7c-4b9a-b9cc-5631cb3c2205] received
+[2025-08-29 22:40:00,394: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:40:02,857: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:40:04,742: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:40:06,580: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:40:08,326: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=NEUTRAL strength=5
+[2025-08-29 22:40:08,501: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[cd82dab2-bc7c-4b9a-b9cc-5631cb3c2205] succeeded in 8.462928291992284s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:45:00,117: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[3afbd221-cbe7-480a-9d26-356696be7ad9] received
+[2025-08-29 22:45:00,480: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:45:02,995: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:45:05,136: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:45:07,028: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:45:08,917: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=NEUTRAL strength=5
+[2025-08-29 22:45:09,094: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[3afbd221-cbe7-480a-9d26-356696be7ad9] succeeded in 8.970828416990116s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}

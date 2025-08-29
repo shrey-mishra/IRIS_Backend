@@ -7,6 +7,8 @@ from app.api.preferences import router as preferences_router
 from app.core.database import engine, Base
 from app.models.portfolio import Portfolio
 from app.models.preferences import Preferences
+from app.models.auto_trading import AutoTradingSettings
+from app.models.trade import Trade
 from app.tasks import celery
 from celery.schedules import crontab
 
@@ -16,6 +18,8 @@ async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
     Portfolio.metadata.create_all(bind=engine)
     Preferences.metadata.create_all(bind=engine)
+    AutoTradingSettings.metadata.create_all(bind=engine)
+    Trade.metadata.create_all(bind=engine)
 
     # Setup Celery beat schedule
     celery.conf.beat_schedule = {
@@ -28,6 +32,11 @@ async def lifespan(app: FastAPI):
             "task": "app.tasks.alert_tasks.check_price_decline",
             "schedule": crontab(minute="*/15"),
             "args": ("testuser@example.com", "BTC/USDT", 0.05)
+        },
+        "run-auto-trading": {
+            "task": "app.tasks.trading_tasks.run_auto_trading_for_all_users",
+            "schedule": crontab(minute="*/5"),
+            "args": ()
         }
     }
 

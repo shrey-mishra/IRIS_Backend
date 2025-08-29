@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.models.user import User
 from app.services.auth_service import get_user_by_email
-from app.models.trade import Trade
 from app.core.security import get_current_user
 from app.core.config import settings
 from app.ml.lstm_model import predict_next_price
@@ -44,7 +43,7 @@ class DirectTradeResponse(BaseModel):
     timestamp: str
     details: Dict[str, Any]
 
-def store_trade_record(user_email: str, trade_data: Dict[str, Any], db: Session | None = None):
+def store_trade_record(user_email: str, trade_data: Dict[str, Any]):
     """Store trade record for recent transactions display"""
     try:
         if user_email not in recent_trades:
@@ -61,7 +60,7 @@ def store_trade_record(user_email: str, trade_data: Dict[str, Any], db: Session 
             "status": "completed",
             "fee": {"cost": 0, "currency": "USDT"},
             "order_id": trade_data["order_id"],
-            "source": trade_data.get("source", "local"),
+            "source": "local"
         }
         
         # Add to beginning of list (most recent first)
@@ -73,23 +72,6 @@ def store_trade_record(user_email: str, trade_data: Dict[str, Any], db: Session 
         
         print(f"DEBUG: Successfully stored trade record for {user_email}: {trade_record}")
         print(f"DEBUG: Total local trades for {user_email}: {len(recent_trades[user_email])}")
-        # Optionally persist to DB if session provided
-        if db:
-            user = get_user_by_email(db, user_email)
-            if user:
-                db_trade = Trade(
-                    user_id=user.id,
-                    symbol=trade_data["symbol"],
-                    side=trade_data["side"],
-                    quantity=trade_data["quantity"],
-                    price=trade_data["price"],
-                    usd_value=trade_data["usd_amount"],
-                    order_id=trade_data.get("order_id"),
-                    status="completed",
-                    source=trade_data.get("source", "local"),
-                )
-                db.add(db_trade)
-                db.commit()
         return trade_record
         
     except Exception as e:
@@ -342,20 +324,13 @@ def execute_ai_auto_trade(
         signal = signal_response["signal"]
         strength = signal_response["strength"]
         
-        # Check if signal is strong enough for trading (user-configurable)
-        try:
-            from app.models.auto_trading import AutoTradingSettings
-            ats = db.query(AutoTradingSettings).filter(AutoTradingSettings.user_id == user.id).first()
-            min_strength = ats.min_signal_strength if ats and ats.min_signal_strength is not None else 60
-        except Exception:
-            min_strength = 60
-
-        if signal in ["NEUTRAL"] or strength < min_strength:
+        # Check if signal is strong enough for trading
+        if signal in ["NEUTRAL"] or strength < 60:
             return {
                 "message": "No trade executed - insufficient signal strength",
                 "signal": signal,
                 "strength": strength,
-                "reason": f"Market conditions not favorable (min_strength={min_strength})"
+                "reason": "Market conditions not favorable"
             }
         
         # Calculate trade size based on risk level and max trade size
@@ -595,7 +570,7 @@ def execute_direct_trade(
             "usd_amount": usd_amount,
             "order_id": order['id']
         }
-        store_trade_record(current_user_email, trade_data_to_store, db)
+        store_trade_record(current_user_email, trade_data_to_store)
 
         return DirectTradeResponse(
             message=f"Trade executed successfully!",
@@ -808,30 +783,8 @@ def get_user_transactions(
                 print(f"DEBUG: Failed to fetch Binance trades: {binance_error}")
                 # Continue with local trades only
         
-        # Also include DB trades (persisted by background tasks)
-        db_trades = []
-        try:
-            from app.models.trade import Trade
-            rows = db.query(Trade).filter(Trade.user_id == user.id).order_by(Trade.created_at.desc()).limit(limit).all()
-            for r in rows:
-                db_trades.append({
-                    "id": r.id,
-                    "type": r.side,
-                    "symbol": r.symbol,
-                    "amount": r.quantity,
-                    "price": r.price,
-                    "usd_value": r.usd_value,
-                    "timestamp": int(r.created_at.timestamp() * 1000) if r.created_at else 0,
-                    "status": r.status,
-                    "fee": {"cost": 0, "currency": "USDT"},
-                    "order_id": r.order_id or "",
-                    "source": r.source,
-                })
-        except Exception as e:
-            print(f"DEBUG: Failed to load DB trades: {e}")
-
-        # Combine local, DB, and Binance trades
-        all_trades = local_trades + db_trades + binance_trades
+        # Combine local and Binance trades
+        all_trades = local_trades + binance_trades
         
         # Sort by timestamp (newest first)
         all_trades.sort(key=lambda x: x["timestamp"], reverse=True)

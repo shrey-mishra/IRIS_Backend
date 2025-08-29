@@ -1,0 +1,108 @@
+[2025-08-26 23:45:18,670: INFO/MainProcess] beat: Starting...
+[2025-08-26 23:45:18,707: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-26 23:50:00,000: CRITICAL/MainProcess] beat raised exception <class '_pickle.UnpicklingError'>: UnpicklingError('pickle data was truncated')
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/shelve.py", line 111, in __getitem__
+    value = self.cache[key]
+            ~~~~~~~~~~^^^^^
+KeyError: 'entries'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/apps/beat.py", line 113, in start_scheduler
+    service.start()
+    ~~~~~~~~~~~~~^^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/beat.py", line 643, in start
+    interval = self.scheduler.tick()
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/beat.py", line 337, in tick
+    not self.schedules_equal(self.old_schedulers, self.schedule)):
+                                                  ^^^^^^^^^^^^^
+  File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/beat.py", line 591, in get_schedule
+    return self._store['entries']
+           ~~~~~~~~~~~^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/shelve.py", line 114, in __getitem__
+    value = Unpickler(f).load()
+_pickle.UnpicklingError: pickle data was truncated
+[2025-08-26 23:50:00,027: WARNING/MainProcess] Traceback (most recent call last):
+[2025-08-26 23:50:00,028: WARNING/MainProcess]   File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/shelve.py", line 111, in __getitem__
+    value = self.cache[key]
+            ~~~~~~~~~~^^^^^
+[2025-08-26 23:50:00,028: WARNING/MainProcess] KeyError: 'entries'
+[2025-08-26 23:50:00,028: WARNING/MainProcess] 
+During handling of the above exception, another exception occurred:
+[2025-08-26 23:50:00,028: WARNING/MainProcess] Traceback (most recent call last):
+[2025-08-26 23:50:00,036: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/./.venv/bin/celery", line 9, in <module>
+    sys.exit(main())
+             ~~~~^^
+[2025-08-26 23:50:00,036: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/__main__.py", line 15, in main
+    sys.exit(_main())
+             ~~~~~^^
+[2025-08-26 23:50:00,036: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/bin/celery.py", line 236, in main
+    return celery(auto_envvar_prefix="CELERY")
+[2025-08-26 23:50:00,036: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/click/core.py", line 1161, in __call__
+    return self.main(*args, **kwargs)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^
+[2025-08-26 23:50:00,036: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/click/core.py", line 1082, in main
+    rv = self.invoke(ctx)
+[2025-08-26 23:50:00,036: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/click/core.py", line 1697, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+[2025-08-26 23:50:00,036: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/click/core.py", line 1443, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[2025-08-26 23:50:00,036: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/click/core.py", line 788, in invoke
+    return __callback(*args, **kwargs)
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/click/decorators.py", line 33, in new_func
+    return f(get_current_context(), *args, **kwargs)
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/bin/base.py", line 135, in caller
+    return f(ctx, *args, **kwargs)
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/bin/beat.py", line 72, in beat
+    return beat().run()
+           ~~~~~~~~~~^^
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/apps/beat.py", line 84, in run
+    self.start_scheduler()
+    ~~~~~~~~~~~~~~~~~~~~^^
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/apps/beat.py", line 113, in start_scheduler
+    service.start()
+    ~~~~~~~~~~~~~^^
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/beat.py", line 643, in start
+    interval = self.scheduler.tick()
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/beat.py", line 337, in tick
+    not self.schedules_equal(self.old_schedulers, self.schedule)):
+                                                  ^^^^^^^^^^^^^
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Users/krishna/Documents/Projects/untitled folder 2/IRIS_Backend/.venv/lib/python3.13/site-packages/celery/beat.py", line 591, in get_schedule
+    return self._store['entries']
+           ~~~~~~~~~~~^^^^^^^^^^^
+[2025-08-26 23:50:00,037: WARNING/MainProcess]   File "/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/shelve.py", line 114, in __getitem__
+    value = Unpickler(f).load()
+[2025-08-26 23:50:00,037: WARNING/MainProcess] _pickle.UnpicklingError: pickle data was truncated
+[2025-08-26 23:53:11,158: INFO/MainProcess] beat: Starting...
+[2025-08-28 10:19:49,364: INFO/MainProcess] beat: Starting...
+[2025-08-28 10:19:49,419: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 10:20:00,000: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 10:25:00,000: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 10:30:00,000: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 10:35:00,000: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 10:40:00,015: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 10:46:17,133: INFO/MainProcess] beat: Starting...
+[2025-08-28 10:46:17,160: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 10:50:00,000: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 10:55:00,032: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 11:00:00,006: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 11:05:00,001: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 11:10:00,051: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 11:22:54,808: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 11:25:00,004: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 11:30:00,021: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 11:35:00,011: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-28 11:50:56,927: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+Stale pidfile exists - Removing it.
+[2025-08-29 22:18:11,841: INFO/MainProcess] beat: Starting...
+[2025-08-29 22:18:11,920: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-29 22:20:00,000: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-29 22:25:00,000: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-29 22:30:00,025: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-29 22:35:00,085: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-29 22:40:00,000: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
+[2025-08-29 22:45:00,045: INFO/MainProcess] Scheduler: Sending due task run-auto-trading (app.tasks.trading_tasks.run_auto_trading_for_all_users)
