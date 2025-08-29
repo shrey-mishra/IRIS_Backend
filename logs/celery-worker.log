@@ -438,3 +438,12 @@ Seems we're already running? (pid: 96202)
 [2025-08-29 22:45:07,028: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
 [2025-08-29 22:45:08,917: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=NEUTRAL strength=5
 [2025-08-29 22:45:09,094: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[3afbd221-cbe7-480a-9d26-356696be7ad9] succeeded in 8.970828416990116s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+[2025-08-29 22:47:31,071: INFO/MainProcess] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[484be283-ba1d-41ca-ae29-a636ef6e659b] received
+[2025-08-29 22:47:31,451: WARNING/ForkPoolWorker-2] AUTO: Starting auto-trading run for 1 users with enabled settings
+[2025-08-29 22:47:37,834: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BTC/USDT - skip_threshold signal=NEUTRAL strength=10
+[2025-08-29 22:47:41,699: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com ETH/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:47:45,071: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com BNB/USDT - skip_threshold signal=SELL strength=30
+[2025-08-29 22:47:48,216: WARNING/ForkPoolWorker-2] AUTO: krishnasaxena69@gmail.com SOL/USDT - skip_threshold signal=NEUTRAL strength=5
+[2025-08-29 22:47:48,398: INFO/ForkPoolWorker-2] Task app.tasks.trading_tasks.run_auto_trading_for_all_users[484be283-ba1d-41ca-ae29-a636ef6e659b] succeeded in 17.317234749963973s: {'status': 'ok', 'processed': 1, 'results': [{'user_id': 1, 'email': 'krishnasaxena69@gmail.com', 'decisions': [...]}]}
+
+worker: Warm shutdown (MainProcess)
